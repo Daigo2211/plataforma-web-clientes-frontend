@@ -9,11 +9,18 @@ import {
   Box,
 } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 import { useForm, Controller } from 'react-hook-form';
 import { Client, ClientFormInput } from '@/types';
 import { FileUploadField } from './FileUploadField';
 import { DocumentFields } from './DocumentFields';
 import { formatDateForInput } from '@/utils';
+
+dayjs.locale('es');
 
 interface ClientFormProps {
   open: boolean;
@@ -157,16 +164,23 @@ export const ClientForm = ({ open, onClose, onSubmit, client, loading }: ClientF
                   control={control}
                   rules={{ required: 'Fecha de nacimiento es obligatoria' }}
                   render={({ field }) => (
-                    <TextField
-                      {...field}
-                      label="Fecha de Nacimiento"
-                      type="date"
-                      fullWidth
-                      InputLabelProps={{ shrink: true }}
-                      error={!!errors.fechaNacimiento}
-                      helperText={errors.fechaNacimiento?.message}
-                      required
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
+                      <DatePicker
+                        label="Fecha de Nacimiento"
+                        value={field.value ? dayjs(field.value) : null}
+                        onChange={(date) => {
+                          field.onChange(date ? date.format('YYYY-MM-DD') : '');
+                        }}
+                        slotProps={{
+                          textField: {
+                            fullWidth: true,
+                            required: true,
+                            error: !!errors.fechaNacimiento,
+                            helperText: errors.fechaNacimiento?.message,
+                          },
+                        }}
+                      />
+                    </LocalizationProvider>
                   )}
                 />
               </Grid>
