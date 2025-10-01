@@ -4,11 +4,11 @@ import DownloadIcon from '@mui/icons-material/Download';
 
 interface ClientActionsProps {
   onCreateClick: () => void;
-  onDownloadCSV: () => void;
+  onDownloadExcel: () => void;
   hasClients: boolean;
 }
 
-export const ClientActions = ({ onCreateClick, onDownloadCSV, hasClients }: ClientActionsProps) => {
+export const ClientActions = ({ onCreateClick, onDownloadExcel, hasClients }: ClientActionsProps) => {
   return (
     <Stack
       direction={{ xs: 'column', sm: 'row' }}
@@ -26,11 +26,11 @@ export const ClientActions = ({ onCreateClick, onDownloadCSV, hasClients }: Clie
       <Button
         variant="outlined"
         startIcon={<DownloadIcon />}
-        onClick={onDownloadCSV}
+        onClick={onDownloadExcel}
         disabled={!hasClients}
         sx={{ width: { xs: '100%', sm: 'auto' } }}
       >
-        Descargar CSV
+        Descargar Excel
       </Button>
     </Stack>
   );

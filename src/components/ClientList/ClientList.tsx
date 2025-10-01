@@ -6,7 +6,7 @@ import { ClientForm } from '@/components/ClientForm';
 import { ConfirmDialog, LoadingSpinner, ErrorAlert } from '@/components/shared';
 import { useClients, useSnackbar } from '@/hooks';
 import { Client } from '@/types';
-import { exportClientsToCSV } from '@/utils';
+import { exportClientsToExcel } from '@/utils';
 
 export const ClientList = () => {
   const { clients, loading, error, createClient, updateClient, deleteClient } = useClients();
@@ -74,17 +74,17 @@ export const ClientList = () => {
     setSelectedClient(null);
   };
 
-  const handleDownloadCSV = () => {
+  const handleDownloadExcel = () => {
     if (clients.length === 0) {
       showSnackbar('No hay clientes para exportar', 'warning');
       return;
     }
 
     try {
-      exportClientsToCSV(clients);
-      showSnackbar('CSV descargado correctamente', 'success');
+      exportClientsToExcel(clients);
+      showSnackbar('Excel descargado correctamente', 'success');
     } catch (err) {
-      showSnackbar('Error al generar el CSV', 'error');
+      showSnackbar('Error al generar el Excel', 'error');
     }
   };
 
@@ -109,7 +109,7 @@ export const ClientList = () => {
 
       <ClientActions
         onCreateClick={handleCreateClick}
-        onDownloadCSV={handleDownloadCSV}
+        onDownloadExcel={handleDownloadExcel}
         hasClients={clients.length > 0}
       />
 

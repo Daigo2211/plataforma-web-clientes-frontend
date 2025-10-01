@@ -25,7 +25,7 @@ Aplicación web para gestionar un catálogo de clientes con información persona
 
 ## Requisitos Previos
 
-- Node.js >= 18.x
+- Node.js >= 18.x (yo elegí usar node 22 LTS)
 - npm o yarn
 - Backend API corriendo (ver repositorio backend)
 
